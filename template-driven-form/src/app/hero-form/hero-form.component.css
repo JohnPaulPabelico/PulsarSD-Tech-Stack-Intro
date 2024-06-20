@@ -1,0 +1,77 @@
+.title {
+  color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 0.67em;
+  margin-top: auto;
+  padding: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-content {
+  width: 500px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.welcome {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 0.67em;
+  margin-top: 30px;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.details-message {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 20px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.details-container {
+  display: flex;
+  justify-content: center;
+}
+
+.details {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-detail {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hero-model {
+  font-weight: bold;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
