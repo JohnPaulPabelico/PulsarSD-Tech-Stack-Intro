@@ -23,13 +23,17 @@
         (cdkDropListDropped)="drop($event)"
         class="list"
       >
-        <p class="empty-label" *ngIf="todo.length === 0">Empty</p>
-        <app-task
-          *ngFor="let task of todo"
-          cdkDrag
-          [task]="task"
-          (edit)="editTask('todo', $event)"
-        ></app-task>
+        <p class="empty-label" *ngIf="isLoading">Loading...</p>
+        <p class="empty-label" *ngIf="todo.length === 0 && !isLoading">Empty</p>
+        <div class="text-wrapper">
+          <app-task
+            *ngFor="let task of todo"
+            cdkDrag
+            [task]="task"
+            (edit)="editTask('todo', $event)"
+            class="todo-item"
+          ></app-task>
+        </div>
       </mat-card>
     </div>
 
@@ -44,12 +48,16 @@
         (cdkDropListDropped)="drop($event)"
         class="list"
       >
-        <p class="empty-label" *ngIf="inProgress.length === 0">Empty</p>
+        <p class="empty-label" *ngIf="isLoading">Loading...</p>
+        <p class="empty-label" *ngIf="inProgress.length === 0 && !isLoading">
+          Empty
+        </p>
         <app-task
           *ngFor="let task of inProgress"
           cdkDrag
           [task]="task"
           (edit)="editTask('inProgress', $event)"
+          class="inprogress-item"
         ></app-task>
       </mat-card>
     </div>
@@ -65,7 +73,8 @@
         (cdkDropListDropped)="drop($event)"
         class="list"
       >
-        <p class="empty-label" *ngIf="done.length === 0">Empty</p>
+        <p class="empty-label" *ngIf="isLoading">Loading...</p>
+        <p class="empty-label" *ngIf="done.length === 0 && !isLoading">Empty</p>
         <app-task
           *ngFor="let task of done"
           cdkDrag

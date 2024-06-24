@@ -62,7 +62,7 @@ app-new-task {
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms;
+  transition: transform 150ms;
 }
 
 .cdk-drag-placeholder {

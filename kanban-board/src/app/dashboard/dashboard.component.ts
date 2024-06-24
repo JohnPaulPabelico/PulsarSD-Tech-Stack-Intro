@@ -19,6 +19,8 @@ import {
 export class DashboardComponent {
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
+  isLoading = false;
+
   todo: any[] = [];
   inProgress: any[] = [];
   done: any[] = [];
@@ -28,11 +30,19 @@ export class DashboardComponent {
   }
 
   loadTasks() {
-    this.taskService.loadTasks().subscribe((tasks: any[]) => {
-      this.todo = tasks.filter((task) => task.status === 'todo');
-      this.inProgress = tasks.filter((task) => task.status === 'inProgress');
-      this.done = tasks.filter((task) => task.status === 'done');
-    });
+    this.isLoading = true;
+    this.taskService.loadTasks().subscribe(
+      (tasks: any[]) => {
+        this.todo = tasks.filter((task) => task.status === 'todo');
+        this.inProgress = tasks.filter((task) => task.status === 'inProgress');
+        this.done = tasks.filter((task) => task.status === 'done');
+        this.isLoading = false; // Set loading flag to false once tasks are loaded
+      },
+      (error) => {
+        console.error('Error loading tasks:', error);
+        this.isLoading = false; // Ensure loading flag is reset on error as well
+      }
+    );
   }
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: any): void {
@@ -91,10 +101,10 @@ export class DashboardComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: TaskDialogResult | undefined) => {
-        if (!result) {
-          return;
-        }
-        this.taskService.addTask(result.task); // Add new task to Firestore
+        // if (!result) {
+        //   return;
+        // }
+        // this.taskService.addTask(result.task); // Add new task to Firestore
       });
   }
 }
