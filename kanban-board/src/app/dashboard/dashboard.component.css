@@ -61,6 +61,13 @@ app-new-task {
   opacity: 0.2;
 }
 
+.loading-label {
+  font-size: 2em;
+  padding-top: 10px;
+  text-align: center;
+  opacity: 0.5;
+}
+
 .cdk-drag-animating {
   transition: transform 150ms;
 }

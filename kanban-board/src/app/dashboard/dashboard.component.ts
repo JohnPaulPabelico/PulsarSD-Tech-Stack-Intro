@@ -10,6 +10,8 @@ import {
   TaskDialogResult,
   TaskDialogComponent,
 } from '../task-dialog/task-dialog.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,9 @@ export class DashboardComponent {
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
   isLoading = false;
+  todoHovered = false;
+  inProgressHovered = false;
+  doneHovered = false;
 
   todo: any[] = [];
   inProgress: any[] = [];
@@ -106,5 +111,26 @@ export class DashboardComponent {
         // }
         // this.taskService.addTask(result.task); // Add new task to Firestore
       });
+  }
+
+  handleListEntered(list: string) {
+    if (list === 'todo') {
+      this.todoHovered = true;
+    } else if (list === 'inProgress') {
+      this.inProgressHovered = true;
+      console.log('inProgressHovered', this.inProgressHovered);
+    } else if (list === 'done') {
+      this.doneHovered = true;
+    }
+  }
+
+  handleListExited(list: string) {
+    if (list === 'todo') {
+      this.todoHovered = false;
+    } else if (list === 'inProgress') {
+      this.inProgressHovered = false;
+    } else if (list === 'done') {
+      this.doneHovered = false;
+    }
   }
 }

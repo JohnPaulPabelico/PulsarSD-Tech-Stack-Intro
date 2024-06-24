@@ -21,10 +21,17 @@
         [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="[doneList, inProgressList]"
         (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('todo')"
+        (cdkDropListExited)="handleListExited('todo')"
         class="list"
       >
-        <p class="empty-label" *ngIf="isLoading">Loading...</p>
-        <p class="empty-label" *ngIf="todo.length === 0 && !isLoading">Empty</p>
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && todo.length === 0 && !todoHovered"
+        >
+          Empty
+        </p>
         <div class="text-wrapper">
           <app-task
             *ngFor="let task of todo"
@@ -46,10 +53,15 @@
         [cdkDropListData]="inProgress"
         [cdkDropListConnectedTo]="[todoList, doneList]"
         (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('inProgress')"
+        (cdkDropListExited)="handleListExited('inProgress')"
         class="list"
       >
-        <p class="empty-label" *ngIf="isLoading">Loading...</p>
-        <p class="empty-label" *ngIf="inProgress.length === 0 && !isLoading">
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && inProgress.length === 0 && !inProgressHovered"
+        >
           Empty
         </p>
         <app-task
@@ -71,10 +83,18 @@
         [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList, inProgressList]"
         (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('done')"
+        (cdkDropListExited)="handleListExited('done')"
         class="list"
       >
-        <p class="empty-label" *ngIf="isLoading">Loading...</p>
-        <p class="empty-label" *ngIf="done.length === 0 && !isLoading">Empty</p>
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <!-- <p class="empty-label" *ngIf="done.length === 0 && !isLoading">Empty</p> -->
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && done.length === 0 && !doneHovered"
+        >
+          Empty
+        </p>
         <app-task
           *ngFor="let task of done"
           cdkDrag
