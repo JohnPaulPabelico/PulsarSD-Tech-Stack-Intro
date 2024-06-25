@@ -16,9 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, TaskComponent, TaskDialogComponent],
+  declarations: [AppComponent, TaskComponent, TaskDialogComponent, DashboardComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { TaskService } from '../task.service';
 import { Task } from '../task/task';
 
 @Component({
@@ -14,17 +14,15 @@ export class TaskDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TaskDialogData,
-    private firestore: AngularFirestore // Inject AngularFirestore
+    private taskService: TaskService
   ) {}
 
   save(): void {
     const taskToSave = { ...this.data.task };
     if (taskToSave.id) {
       // Existing task: update in Firestore
-      this.firestore
-        .collection('tasks')
-        .doc(taskToSave.id)
-        .update(taskToSave)
+      this.taskService
+        .updateTask(taskToSave.id, taskToSave)
         .then(() => {
           this.dialogRef.close({ task: taskToSave });
         })
@@ -34,9 +32,8 @@ export class TaskDialogComponent {
         });
     } else {
       // New task: add to Firestore
-      this.firestore
-        .collection('tasks')
-        .add(taskToSave)
+      this.taskService
+        .addTask(taskToSave)
         .then((docRef) => {
           taskToSave.id = docRef.id; // Update task with Firestore document ID
           this.dialogRef.close({ task: taskToSave });
@@ -55,10 +52,8 @@ export class TaskDialogComponent {
   }
 
   delete(): void {
-    this.firestore
-      .collection('tasks')
-      .doc(this.data.task.id)
-      .delete()
+    this.taskService
+      .deleteTask(this.data.task.id!)
       .then(() => {
         this.dialogRef.close({ task: this.data.task, delete: true });
       })

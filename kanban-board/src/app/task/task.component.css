@@ -7,8 +7,19 @@
   padding: 10px;
   border-radius: 0.5rem;
   border-width: 1px;
-  border-color: plum;
   cursor: pointer;
+  max-width: 500px;
+}
+
+/* Ensure h2 wraps within mat-card-title */
+h2 {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+p {
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 :host {

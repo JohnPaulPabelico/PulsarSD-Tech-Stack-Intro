@@ -1,0 +1,107 @@
+<mat-toolbar class="toolbar">
+  <div class="title">
+    <mat-icon color="primary" class="white-icon">bolt</mat-icon>
+    <h2 class="">Kanban Board</h2>
+    <span class="example-spacer"></span>
+  </div>
+  <button (click)="newTask()" mat-fab extended class="button">
+    <mat-icon>add</mat-icon>
+    <h3>Add Task</h3>
+  </button>
+</mat-toolbar>
+
+<div class="content-wrapper">
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>Backlog</h2>
+      <mat-card
+        cdkDropList
+        id="todo"
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList, inProgressList]"
+        (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('todo')"
+        (cdkDropListExited)="handleListExited('todo')"
+        class="list"
+      >
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && todo.length === 0 && !todoHovered"
+        >
+          Empty
+        </p>
+        <div class="text-wrapper">
+          <app-task
+            *ngFor="let task of todo"
+            cdkDrag
+            [task]="task"
+            (edit)="editTask('todo', $event)"
+            class="todo-item"
+          ></app-task>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <h2>In Progress</h2>
+      <mat-card
+        cdkDropList
+        id="inProgress"
+        #inProgressList="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="[todoList, doneList]"
+        (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('inProgress')"
+        (cdkDropListExited)="handleListExited('inProgress')"
+        class="list"
+      >
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && inProgress.length === 0 && !inProgressHovered"
+        >
+          Empty
+        </p>
+        <app-task
+          *ngFor="let task of inProgress"
+          cdkDrag
+          [task]="task"
+          (edit)="editTask('inProgress', $event)"
+          class="inprogress-item"
+        ></app-task>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <h2>Done</h2>
+      <mat-card
+        cdkDropList
+        id="done"
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList, inProgressList]"
+        (cdkDropListDropped)="drop($event)"
+        (cdkDropListEntered)="handleListEntered('done')"
+        (cdkDropListExited)="handleListExited('done')"
+        class="list"
+      >
+        <p class="loading-label" *ngIf="isLoading">Loading...</p>
+        <!-- <p class="empty-label" *ngIf="done.length === 0 && !isLoading">Empty</p> -->
+        <p
+          class="empty-label"
+          *ngIf="!isLoading && done.length === 0 && !doneHovered"
+        >
+          Empty
+        </p>
+        <app-task
+          *ngFor="let task of done"
+          cdkDrag
+          [task]="task"
+          (edit)="editTask('done', $event)"
+        ></app-task>
+      </mat-card>
+    </div>
+  </div>
+</div>
