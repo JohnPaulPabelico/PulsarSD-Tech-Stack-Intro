@@ -1,0 +1,8 @@
+<div>
+  <h1 class="counter">
+    Counter: <span class="counter-number">{{ count$ | async }}</span>
+  </h1>
+  <button class="button" (click)="increment()">Increment</button>
+  <button class="button" (click)="decrement()">Decrement</button>
+  <button class="button" (click)="reset()">Reset</button>
+</div>
